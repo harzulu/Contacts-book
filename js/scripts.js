@@ -1,6 +1,19 @@
 $(document).ready(function() {
   // User Interface Logic here:
   // dummy userNames, etc... I like it
+  let contactBook = new ContactBook;
+  $("form#new-contact").submit(function(event) {
+    event.preventDefault();
+    
+    const inputFirstName = $("#new-first-name").val();
+    const inputLastName = $("#new-last-name").val();
+    const inputPhoneNumber = $("#new-phone-number").val();
+    const inputAddress = $("#new-address").val();
+    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress);
+    contactBook.addNewContact(contact01);
+    console.log(contactBook.contacts[0]);
+    
+  })
 });
 
 
