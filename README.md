@@ -1,8 +1,8 @@
-# [Project Name]
+# Contact Book
 
-## [Brief summary], [Current version date]
+## [Brief summary], 11-03-2020
 
-### [All Authors]
+### Ben McFarlnad, Tyler Sinks
 
 [Deatiled full description of the whole program]
 
@@ -24,12 +24,15 @@
 
 ## Technology Used
 
-* [Language 1]
-* [Language 2]
-* [Software 1]
+* Visual Studio Code
+* HTML
+* CSS
+* Bootstrap
+* JavaScript
+* jQuery
 
 ## Licenseing and Copyright
 
-[Determine the license which this application can be under (Typically MIT or GPL)]
+This project is licensed under the GPL license.
 
-Copyright (c) 20-- [List of authors/company(s)]
+Copyright (c) 2020 Ben McFarland, Tyler Sinks
