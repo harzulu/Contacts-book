@@ -1,11 +1,12 @@
 let contactBook = new ContactBook;
 
 // Business Logic
-function Contact(firstName, lastName, phoneMain, address) {
+function Contact(firstName, lastName, phoneMain, address, email) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneMain = phoneMain;
   this.address = address;
+  this.email = email;
 }
 
 Contact.prototype.fullName = function() {
@@ -76,6 +77,7 @@ function showContact(contactId) {
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneMain);
   $(".address").html(contact.address);
+  $(".email").html(contact.email);
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
@@ -92,7 +94,8 @@ $(document).ready(function() {
     const inputLastName = $("#new-last-name").val();
     const inputPhoneNumber = $("#new-phone-number").val();
     const inputAddress = $("#new-address").val();
-    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress);
+    const inputEmail = $("#new-email").val();
+    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress, inputEmail);
     contactBook.addNewContact(contact01);
     displayContactDetails(contactBook);
     
