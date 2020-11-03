@@ -1,21 +1,4 @@
-$(document).ready(function() {
-  // User Interface Logic here:
-  // dummy userNames, etc... I like it
-  let contactBook = new ContactBook;
-  $("form#new-contact").submit(function(event) {
-    event.preventDefault();
-    
-    const inputFirstName = $("#new-first-name").val();
-    const inputLastName = $("#new-last-name").val();
-    const inputPhoneNumber = $("#new-phone-number").val();
-    const inputAddress = $("#new-address").val();
-    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress);
-    contactBook.addNewContact(contact01);
-    console.log(contactBook.contacts[0]);
-    
-  })
-});
-
+let contactBook = new ContactBook;
 
 // Business Logic
 function Contact(firstName, lastName, phoneMain, address) {
@@ -23,6 +6,10 @@ function Contact(firstName, lastName, phoneMain, address) {
   this.lastName = lastName;
   this.phoneMain = phoneMain;
   this.address = address;
+}
+
+Contact.prototype.fullName = function() {
+  return this.firstName + " " + this.lastName;
 }
 
 function ContactBook() {
@@ -62,3 +49,52 @@ ContactBook.prototype.findContact = function(id) {
   };
   return false;
 }
+function displayContactDetails(addressBookToDisplay) {
+  let contactsList = $("ul#contacts");
+  let htmlForContactInfo = "";
+  addressBookToDisplay.contacts.forEach(function(contact) {
+    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+  });
+  contactsList.html(htmlForContactInfo);
+}
+
+function attachContactListeners() {
+  $("ul#contacts").on("click", "li", function() {
+    showContact(this.id);
+  });
+  $("#buttons").on("click", ".deleteButton", function() {
+    contactBook.removeContact(this.id);
+    $("#show-contact").hide();
+    displayContactDetails(contactBook);
+  });
+}
+
+function showContact(contactId) {
+  const contact = contactBook.contacts[contactBook.findContact(contactId)];
+  $("#show-contact").show();
+  $(".first-name").html(contact.firstName);
+  $(".last-name").html(contact.lastName);
+  $(".phone-number").html(contact.phoneMain);
+  $(".address").html(contact.address);
+  let buttons = $("#buttons");
+  buttons.empty();
+  buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
+}
+
+$(document).ready(function() {
+  // User Interface Logic here:
+  // dummy userNames, etc... I like it
+  attachContactListeners();
+  $("form#new-contact").submit(function(event) {
+    event.preventDefault();
+    
+    const inputFirstName = $("#new-first-name").val();
+    const inputLastName = $("#new-last-name").val();
+    const inputPhoneNumber = $("#new-phone-number").val();
+    const inputAddress = $("#new-address").val();
+    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress);
+    contactBook.addNewContact(contact01);
+    displayContactDetails(contactBook);
+    
+  })
+});
