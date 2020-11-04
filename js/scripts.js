@@ -76,6 +76,20 @@ function attachContactListeners() {
     $("#show-contact").hide();
     displayContactDetails(contactBook);
   });
+  // on click #email
+  $("div#email").on("click", "p", function() {
+    const addressValue = $("#new-address").val();
+    const type = $("type").val();
+    let email = new Address(addressValue, type);
+    contact01.addNewAddress(email);
+  });
+  // on click #physicalAddress
+  $("div#physicalAddress").on("click", "p", function() {
+    const addressValue = $("#new-address").val();
+    const type = $("type").val();
+    let physicalAddress = new Address(addressValue, type);
+    contact01.addNewAddress(physicalAddress);
+  })
 }
 
 function showContact(contactId) {
@@ -101,13 +115,7 @@ $(document).ready(function() {
     const inputFirstName = $("#new-first-name").val();
     const inputLastName = $("#new-last-name").val();
     const inputPhoneNumber = $("#new-phone-number").val();
-    const inputAddress = $("#new-address").val();
-    const inputEmail = $("#new-email").val();
-    let email = new Address(inputEmail, "work")
-    let physicalAddress = new Address(inputAddress, "home")
     let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber);
-    contact01.addNewAddress(physicalAddress);
-    contact01.addNewAddress(email);
     contactBook.addNewContact(contact01);
     displayContactDetails(contactBook);
     
