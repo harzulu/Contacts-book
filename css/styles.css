@@ -5,6 +5,20 @@ body {
   background-color: rgb(206, 255, 127);
 }
 
+#addressButtons p {
+  margin-bottom: 0em;
+}
+
+#addressButtons {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+#address-form {
+  border: 3px solid black;
+  margin-bottom: 10px;
+}
+
 #show-contact {
   display: none;
 }

@@ -1,16 +1,24 @@
+// Business Logic
 let contactBook = new ContactBook;
 
-// Business Logic
-function Contact(firstName, lastName, phoneMain, address, email) {
+function Contact(firstName, lastName, phoneMain) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneMain = phoneMain;
-  this.address = address;
-  this.email = email;
+  this.addresses = [];
+}
+
+function Address(addressValue, type) {
+  this.addressValue = addressValue;
+  this.type = type;
 }
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
+}
+
+Contact.prototype.addNewAddress = function(address) {
+  this.addresses.push(address);
 }
 
 function ContactBook() {
@@ -76,8 +84,8 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneMain);
-  $(".address").html(contact.address);
-  $(".email").html(contact.email);
+  $(".address").html(contact.addresses[0].addressValue + " " + contact.addresses[0].type);
+  $(".email").html(contact.addresses[1].addressValue + " " + contact.addresses[1].type);
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
@@ -95,7 +103,11 @@ $(document).ready(function() {
     const inputPhoneNumber = $("#new-phone-number").val();
     const inputAddress = $("#new-address").val();
     const inputEmail = $("#new-email").val();
-    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber, inputAddress, inputEmail);
+    let email = new Address(inputEmail, "work")
+    let physicalAddress = new Address(inputAddress, "home")
+    let contact01 = new Contact(inputFirstName, inputLastName, inputPhoneNumber);
+    contact01.addNewAddress(physicalAddress);
+    contact01.addNewAddress(email);
     contactBook.addNewContact(contact01);
     displayContactDetails(contactBook);
     
